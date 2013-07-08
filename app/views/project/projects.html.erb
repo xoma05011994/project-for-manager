@@ -1,0 +1,109 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+
+<!-- , data: { confirm: "Are you sure?" } -->
+
+    <div class="btn-group">
+      <button class="btn"><%= link_to "Programmers", {controller: "programmer", action: "show"}  %></button>
+      <button class="btn"><%= link_to "Managers", controller: "manager", action: "show" %></button>
+      <button class="btn"><%= link_to "Clients", controller: "client", action: "show" %></button>
+      <button class="btn"><%= link_to "Projects", controller: "project", action: "projects" %></button>
+    </div>
+    <p>
+    <div id = "content" >
+      <table class = "table table-bordered title"><tr class='info'><td class = "title"><h2>Projects</h2></td></tr></table>
+      <table class = "table table-bordered mytable">
+        <tr id = "lable_tr" class='success' >
+          <td>Project name</td>
+          <td>Client</td>
+          <td>Programmer</td>
+          <td>Manager</td>
+          <td width="37">Status</td>
+          <td>Date of Start</td>
+          <td>Deadline</td>
+          <td>Totally</td>
+          <td width="60">Currency</td>
+          <td>Paid</td>
+          <td>To pay</td>
+          <td>Comment</td>
+          <td width = "70">Delete</td>
+          <td width = "50" rowspan="<% unless @projects_all.nil? %><%= @projects_all.length + 1 %><% end %>" style = "text-align: right; vertical-align: bottom;">
+          <a id="a_Add" role="button" class="btn">Add</a>
+          </td>
+
+        </tr>
+        <% unless @projects_all.nil? %>
+          <% @projects_all.each_with_index do |project, i| %>
+          <% @k = i %>
+            <tr class = "project_id" project-id = "<%= project.id.to_s %>" >
+              <td> <%= project.name %> </td>
+              <% unless project.client.try(:last_name).nil? %>
+                <td> <%= project.client.last_name %> </td>
+              <% else %>
+                <td style="color: red;" >Removed</td>
+              <% end %>                
+              <td class = "td_programmers" > 
+                <% project.programmers.each do |programmer| %> 
+                  <%= programmer.last_name + ";" %>
+                <% end %>
+              </td title="<%= project.comment %>" >
+              <% unless project.manager.try(:last_name).nil? %>
+              <td> <%= project.manager.last_name %> </td>
+              <% else %>
+              <td style="color: red;" >Removed</td>
+              <% end %>
+              <td> <%= project.status.title %> </td>
+              <td> <%= project.date_of_start %> </td>
+              <td> <%= project.deadline %> </td>
+              <td> <%= project.totally %> </td>
+              <td> <%= project.currency.title %> </td>
+              <td> <%= project.paid %> </td>
+              <td> <%= project.to_pay %> </td>
+              <td title="<%= project.comment %>" > <%= project.comment %> </td>
+              <td style = "text-align: center; vertical-align: middle;">
+                <a 
+                id-project="<%= project.id %>" 
+                role="button" 
+                class="btn delete-project">Delete
+                </a>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+
+    <div id="Add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="AddLabel">Add</h3>
+  </div>
+  <div class="modal-body">
+
+      <%= simple_form_for @project_new, :url => { :action => "new" }, :html => { :class => 'form-horizontal', :id => "addForm", :onsubmit => "add()" }, :remote => true do |project| %>
+          <%= project.input :name, :label => "Project name:" %>
+          <%= project.input :client, :label => "Client:", :collection => @clients_all.map{|client| [client.last_name, client.id]}, :selected => "1" %>
+          <%= project.input :manager, :label => "Manager:", :collection => @managers_all.map{|manager| [manager.last_name, manager.id]}, :selected => "1" %>
+          <%= project.input :status, :label => "Status:", :collection => @statuses_all.map{|status| [status.title, status.id]}, :selected => "1" %>
+          <%= project.input :date_of_start, :as => :string, input_html: { class: 'datepicker date-of-start' } %>
+          <%= project.input :deadline, :as => :string, input_html: { class: 'datepicker' } %>
+          <%= project.input :totally, :as => :float, :label => "Totally:" %>
+          <%= project.input :currency, :label => "Currency:", :collection => @currencies_all.map{|currency| [currency.title, currency.id]}, :selected => "1" %>
+          <%= project.input :paid, :as => :float, :label => "Paid:" %>
+          <%= project.input :comment, :as => :text, :label => "Comment:" %>
+          <%= project.collection_check_boxes :programmer_ids, @programmers_all, :id, :last_name, :item_wrapper_class => 'check_boxes' %>
+          <%= project.button :submit %>
+          <% end %>
+
+  </div>
+</div>
+
+  <div class="modalwindow" >
+  </div>
+
+  </body>
+
+</html>

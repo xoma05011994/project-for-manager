@@ -1,0 +1,72 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+
+		<div class="btn-group">
+      <button class="btn"><%= link_to "Programmers", controller: "programmer", action: "show" %></button>
+      <button class="btn"><%= link_to "Managers", controller: "manager", action: "show" %></button>
+      <button class="btn"><%= link_to "Clients", controller: "client", action: "show" %></button>
+      <button class="btn"><%= link_to "Projects", controller: "project", action: "projects" %></button>
+    </div>
+
+		<div id = "content" >
+      <table class = "table table-bordered title"><tr class='info'><td class = "title"><h2>Managers</h2></td></tr></table>
+      <table class = "table table-bordered mytable">
+        <tr id = "lable_tr" class='success' >
+        	<td>Last name</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Projects</td>
+          <td width = "70">Delete</td>
+          <td width = "50" rowspan="<% unless @managers_all.nil? %><%= @managers_all.length + 1 %><% end %>" style = "text-align: right; vertical-align: bottom;">
+          <a id="a_Add" role="button" class="btn">Add</a>
+          </td>
+        </tr>
+        <% unless @managers_all.nil? %>
+          <% @managers_all.each do |manager| %>
+	      		<tr class = "manager_id" manager-id = "<%= manager.id.to_s %>" >
+	            <td> <%= manager.last_name %> </td>	            
+	            <td> <%= manager.first_name %> </td>
+	            <td> <%= manager.email %> </td>
+              <td> 
+                <% manager.projects.each do |project| %>
+                <%= project.name + ";" %>
+                <% end %>
+              </td>
+              <td style = "text-align: center; vertical-align: middle;">
+                <a 
+                id-manager="<%= manager.id %>" 
+                role="button" 
+                class="btn delete-manager">Delete
+                </a>
+              </td>
+	          </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+
+    <div id="Add" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  		<div class="modal-header">
+    		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		<h3 id="AddLabel">Add</h3>
+  		</div>
+  		<div class="modal-body">
+
+      	<%= simple_form_for @manager_new, :url => { :action => "new" }, :html => { :class => 'form-horizontal', :id => "addForm", :onsubmit => "add()" }, :remote => true do |manager| %>
+          <%= manager.input :first_name, :as => :string, :label => "Name:" %>
+          <%= manager.input :last_name, :as => :string, :label => "Last name:" %>
+          <%= manager.input :email, :as => :email, :label => "Email:" %>
+          <%= manager.button :submit %>
+        
+        <% end %>
+			</div>
+		</div>
+
+  <div class="modalwindow" >
+  </div>
+
+  </body>
+</html>

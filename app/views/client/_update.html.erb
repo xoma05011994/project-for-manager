@@ -1,0 +1,26 @@
+<html>
+  <head>
+
+  </head>
+  <body>
+
+    <div id="Update" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="AddLabel">Edit</h3>
+  </div>
+  <div class="modal-body">
+
+      <%= simple_form_for @client_update, :url => { :action => "update" }, :html => { :class => 'form-horizontal', :id => "updateForm", :onsubmit => "update()" }, :remote => true do |client| %>
+                <%= client.input :id, :as => :hidden %>
+          <%= client.input :first_name, :as => :string, :label => "Name:" %>
+          <%= client.input :last_name, :as => :string, :label => "Last name:" %>
+          <%= client.input :email, :as => :email, :label => "Email:" %>
+          <%= client.button :submit %>
+          <% end %>
+
+  </div>
+
+  </body>
+
+</html
