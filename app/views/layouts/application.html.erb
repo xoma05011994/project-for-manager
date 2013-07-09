@@ -7,6 +7,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div id="header">
+		<div class="btn-group">
+      		<button class="btn"><%= link_to "Programmers", programmers_path %></button>
+      		<button class="btn"><%= link_to "Managers", managers_path %></button>
+      		<button class="btn"><%= link_to "Clients", clients_path %></button>
+      		<button class="btn"><%= link_to "Projects", projects_path %></button>
+    	</div>
+    </div>
 
 <%= yield %>
 
