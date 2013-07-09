@@ -1,8 +1,0 @@
-      <%= simple_form_for @client_update=> true do |client| %>
-                <%= client.input :id, :as => :hidden %>
-          <%= client.input :first_name, :as => :string, :label => "Name:" %>
-          <%= client.input :last_name, :as => :string, :label => "Last name:" %>
-          <%= client.input :email, :as => :email, :label => "Email:" %>
-          <%= client.button :submit %>
-          <% end %>
-

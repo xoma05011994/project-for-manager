@@ -11,35 +11,48 @@ class ClientsController < ApplicationController
     @client = Client.new
 
   end
+
   def create 
     @client = Client.new(params[:client])
   
    if @client.save
-     redirect_to @client
+     redirect_to clients_path
    else
      render 'new'
    end
   end
 
-  def update
+  def edit
+    @client = Client.find(params[:id])
+  end
 
-  	unless params[:client_id].nil?
-  		@client_update = Client.find(params[:client_id])
-  		updated = false
-  		render :partial => 'update'
-  	else
-  		updated = Client.update(params[:client][:id], params[:client])
-  		if updated
-        render js: "location.reload();"
-      else
-        render js: "alert('Didn`t update. Please, try againe!');"
-      end
-  	end
+  def update
+  @client = Client.find(params[:id])
+ 
+  if @client.update_attributes(params[:client])
+    redirect_to @client
+  else
+    render 'edit'
+  end
 
   end
   
-  def delete
-    Client.find(params[:id_client]).destroy
-    render js: "location.reload();"
+  def destroy
+    Client.find(params[:id]).destroy
+    redirect_to clients_path
   end
+
 end
+
+#   unless params[:client_id].nil?
+ #    @client = Client.find(params[:client_id])
+ #    updated = false
+  #   render :partial => 'update'
+  # else
+  #   updated = Client.update(params[:client][:id], params[:client])
+  #   if updated
+   #     render 'index'
+    #  else
+     #   render :partial =>'update'
+      #end
+  # end

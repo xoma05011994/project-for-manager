@@ -6,8 +6,8 @@
           <td>Name</td>
           <td>Email</td>
           <td>Projects</td>
-          <td id = "delete">Delete</td>
-          <td width = "50" rowspan="<% unless @clients.nil? %><%= @clients.length + 1 %><% end %>" style = "text-align: right; vertical-align: bottom;">
+          <td>Actions</td>
+          <td width = "50" style = "text-align: right; vertical-align: bottom;">
           <%= link_to "Add", new_client_path %>
           </td>
 
@@ -23,12 +23,22 @@
                 <%= project.name + ";" %> 
                 <% end %>
               </td>
-              <td style = "text-align: center; vertical-align: middle;">
-                <a 
-                id-client="<%= client.id %>" 
-                role="button" 
-                class="btn delete-client">Delete
-                </a>
+              <td style = "text-align: center; vertical-align: middle; overflow:visible;">
+                <div class="btn-group">
+             <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+              Action
+             <span class="caret"></span>
+             </a>
+        
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Show', action: :show, id: client.id %></li>
+                <li><%= link_to 'Edit', action: :edit, id: client.id %></li>
+                <li><%= link_to 'Delete', { action: :destroy, id: client.id },
+                     method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            </ul>
+        </div>
+              </td>
+              <td>
               </td>
             </tr>
           <% end %>
