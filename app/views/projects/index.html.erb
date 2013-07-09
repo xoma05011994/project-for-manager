@@ -26,7 +26,7 @@
       <div class="title"> 
       	<h2>Projects</h2>
       </div>
-      
+
       <table class = "table table-bordered mytable">
         <tr id = "lable_tr" class='success' >
           <td>Project name</td>
@@ -46,5 +46,54 @@
           <a id="a_Add" role="button" class="btn">Add</a>
           </td>
         </tr>
+
+        <% @projects_all.each do |project| %>
+  		<tr>
+    	<td><%= project.title %></td>
+    	<% unless project.client.try(:last_name).nil? %>
+        	<td> 
+        		<%= project.client.last_name %> 
+        	</td>
+        <% else %>
+        	<td 
+        		style="color: red;">Removed
+        	</td>
+        <% end %>
+        <td class = "td_programmers" > 
+                <% project.programmers.each do |programmer| %> 
+                  <%= programmer.last_name + ";" %>
+                <% end %>
+         </td>
+
+    	<% unless project.manager.try(:last_name).nil? %>
+        	<td> <%= project.manager.last_name %> </td>
+        <% else %>
+            <td style="color: red;" >Removed</td>
+        <% end %>
+        <td> <%= project.status.title %> </td>
+        <td> <%= project.date_of_start %> </td>
+        <td> <%= project.deadline %> </td>
+        <td> <%= project.totally %> </td>
+        <td> <%= project.currency.title %> </td>
+        <td> <%= project.paid %> </td>
+        <td> <%= project.to_pay %> </td>
+    	<td>
+      		<div class="btn-group">
+       			 <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+          		Action
+         		 <span class="caret"></span>
+       			 </a>
+        
+       		 <ul class="dropdown-menu">
+         		<li><%= link_to 'Show', action: :show, id: post.id %></li>
+          		<li><%= link_to 'Edit', action: :edit, id: post.id %></li>
+          		<li><%= link_to 'Destroy', { action: :destroy, id: post.id },
+                    method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        	</ul>
+      </div>
+  </tr>
+<% end %>
+</table>
+
     </table>
 </div>
