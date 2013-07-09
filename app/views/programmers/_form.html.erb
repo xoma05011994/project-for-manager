@@ -1,0 +1,7 @@
+      <%= simple_form_for @programmer do |programmer| %>
+        <%= programmer.input :id, :as => :hidden %>
+        <%= programmer.input :first_name, :as => :string, :label => "Name:" %>
+        <%= programmer.input :last_name, :as => :string, :label => "Last name:" %>
+        <%= programmer.input :email, :as => :email, :label => "Email:" %>
+        <%= programmer.button :submit %>
+        <% end %>

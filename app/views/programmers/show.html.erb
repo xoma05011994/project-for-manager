@@ -1,0 +1,45 @@
+    <div id = "content" >
+      <table class = "table table-bordered title"><tr class='info'><td class = "title"><h2><%= @programmer.first_name %> <%= @programmer.last_name %></h2></td></tr></table>
+      <table class = "table table-bordered mytable">
+        <tr id = "lable_tr" class='success' >
+          <td>Project</td>
+          <td>Client</td>
+          <td>Manager</td>
+          <td width="37">Status</td>
+          <td>Date of Start</td>
+          <td>Deadline</td>
+          <td>Totally</td>
+          <td width="60">Currency</td>
+          <td>Paid</td>
+          <td>To pay</td>
+          <td>Comment</td>
+        </tr>
+        <% unless @programmer.projects.nil? %>
+          <% @programmer.projects.each do |project| %>
+            <tr class = "programmer_id" client-id = "<%= programmer.id.to_s %>" >
+              <td> <%= project.title %> </td>              
+              <td> 
+                <% project.programmers.each do |programmer| %> 
+                  <%= programmer.last_name + ";" %>
+                <% end %>
+              </td>
+                <% unless project.client.try(:last_name).nil? %>
+                   <td> <%= project.client.last_name %> </td>
+                <% else %>
+                    <td style="color: red;" >Removed</td>
+                <% end %>
+              <td> <%= project.status.title %> </td>
+        <td> <%= project.date_of_start %> </td>
+        <td> <%= project.deadline %> </td>
+        <td> <%= project.totally %> </td>
+        <td> <%= project.currency.title %> </td>
+        <td> <%= project.paid %> </td>
+        <td> <%= project.to_pay %> </td>
+        <td> <%= project.comment %> </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+
+    

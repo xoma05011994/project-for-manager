@@ -1,36 +1,44 @@
 class ProgrammersController < ApplicationController
   def index
-  	@programmers_all = Programmer.all
-  	@programmer_new = Programmer.new
-  end
-
-  def new
-  	Programmer.create(params[:programmer])
-  	render js: "location.reload();"
+  	@programmers = Programmer.all
   end
 
   def show
+    @programmer = Programmer.find(params[:id])
+  end
+
+  def new
+    @programmer = Programmer.new
+  end
+
+  def create
+    @programmer = Programmer.new(params[:programmer])
+  
+   if @programmer.save
+     redirect_to programmers_path
+   else
+     render 'new'
+   end
+  end
+
+  def edit
+    @programmer = Programmer.find(params[:id])
   end
 
   def update
 
-  	unless params[:programmer_id].nil?
-  		@programmer_update = Programmer.find(params[:programmer_id])
-  		updated = false
-  		render :partial => 'update'
-  	else
-  		updated = Programmer.update(params[:programmer][:id], params[:programmer])
-  		if updated
-        render js: "location.reload();"
-      else
-        render js: "alert('Didn`t update. Please, try againe!');"
-      end
-  	end
+  	@programmer = Programmer.find(params[:id])
+ 
+    if @programmer.update_attributes(params[:programmer])
+      redirect_to programmers_path
+    else
+      render 'edit'
+    end
 
   end
 
-  def delete
-    Programmer.find(params[:id_programmer]).destroy
-    render js: "location.reload();"
+  def destroy
+    Programmer.find(params[:id]).destroy
+    redirect_to programmers_path
   end
 end
