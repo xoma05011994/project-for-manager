@@ -1,21 +1,7 @@
 <h1>New project</h1>
 
-<div class="modal-body">
 
-      <%= simple_form_for @project_new, :url => { :action => "new" }, :html => { :class => 'form-horizontal', :id => "addForm", :onsubmit => "add()" }, :remote => true do |project| %>
-          <%= project.input :name, :label => "Project name:" %>
-          <%= project.input :client, :label => "Client:", :collection => @clients_all.map{|client| [client.last_name, client.id]}, :selected => "1" %>
-          <%= project.input :manager, :label => "Manager:", :collection => @managers_all.map{|manager| [manager.last_name, manager.id]}, :selected => "1" %>
-          <%= project.input :status, :label => "Status:", :collection => @statuses_all.map{|status| [status.title, status.id]}, :selected => "1" %>
-          <%= project.input :date_of_start, :as => :string, input_html: { class: 'datepicker date-of-start' } %>
-          <%= project.input :deadline, :as => :string, input_html: { class: 'datepicker' } %>
-          <%= project.input :totally, :as => :float, :label => "Totally:" %>
-          <%= project.input :currency, :label => "Currency:", :collection => @currencies_all.map{|currency| [currency.title, currency.id]}, :selected => "1" %>
-          <%= project.input :paid, :as => :float, :label => "Paid:" %>
-          <%= project.input :comment, :as => :text, :label => "Comment:" %>
-          <%= project.collection_check_boxes :programmer_ids, @programmers_all, :id, :last_name, :item_wrapper_class => 'check_boxes' %>
-          <%= project.button :submit %>
-          <% end %>
 
-  </div>
- 
+
+<%= render 'form' %>
+
