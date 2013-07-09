@@ -30,7 +30,7 @@ class ClientsController < ApplicationController
   @client = Client.find(params[:id])
  
   if @client.update_attributes(params[:client])
-    redirect_to @client
+    redirect_to clients_path
   else
     render 'edit'
   end
