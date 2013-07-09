@@ -1,36 +1,46 @@
 class ManagersController < ApplicationController
+  def index
+    @managers = Manager.all
+  end
+
   def show
-  	@managers_all = Manager.all
-  	@manager_new = Manager.new
+    @manager = Manager.find(params[:id])
   end
 
   def new
+    @manager = Manager.new
 
-  	Manager.create(params[:manager])
-  	render js: "location.reload();"
+  end
 
+  def create 
+    @manager = Manager.new(params[:manager])
+  
+   if @manager.save
+     redirect_to managers_path
+   else
+     render 'new'
+   end
+  end
+
+  def edit
+    @manager = Manager.find(params[:id])
   end
 
   def update
-
-  	unless params[:manager_id].nil?
-  		@manager_update = Manager.find(params[:manager_id])
-  		updated = false
-  		render :partial => 'update'
-  	else
-  		updated = Manager.update(params[:manager][:id], params[:manager])
-  		if updated
-        render js: "location.reload();"
-      else
-        render js: "alert('Didn`t update. Please, try againe!');"
-      end
-  	end
-
+  @manager = Manager.find(params[:id])
+ 
+  if @manager.update_attributes(params[:manager])
+    redirect_to managers_path
+  else
+    render 'edit'
   end
 
-  def delete
-    Manager.find(params[:id_manager]).destroy
-    render js: "location.reload();"
   end
+  
+  def destroy
+    Manager.find(params[:id]).destroy
+    redirect_to managers_path
+  end
+
 end
 

@@ -1,0 +1,7 @@
+<%= simple_form_for @manager do |manager| %>
+                <%= manager.input :id, :as => :hidden %>
+          <%= manager.input :first_name, :as => :string, :label => "Name:" %>
+          <%= manager.input :last_name, :as => :string, :label => "Last name:" %>
+          <%= manager.input :email, :as => :email, :label => "Email:" %>
+          <%= manager.button :submit %>
+          <% end %>
