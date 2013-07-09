@@ -14,7 +14,7 @@
         </tr>
         <% unless @programmers.nil? %>
           <% @programmers.each do |programmer| %>
-	      		<tr class = "programmer_id" programmer-id = "<%= programmer.id.to_s %>" >
+	      		<tr class = "programmer_id">
 	            <td> <%= programmer.last_name %> </td>	            
 	            <td> <%= programmer.first_name %> </td>
 	            <td> <%= programmer.email %> </td>

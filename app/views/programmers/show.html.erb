@@ -16,23 +16,23 @@
         </tr>
         <% unless @programmer.projects.nil? %>
           <% @programmer.projects.each do |project| %>
-            <tr class = "programmer_id" client-id = "<%= programmer.id.to_s %>" >
-              <td> <%= project.title %> </td>              
-              <td> 
-                <% project.programmers.each do |programmer| %> 
-                  <%= programmer.last_name + ";" %>
-                <% end %>
-              </td>
-                <% unless project.client.try(:last_name).nil? %>
+            <tr class = "programmer_id" >
+              <td> <%= project.name %> </td>  
+              <% unless project.client.try(:last_name).nil? %>
                    <td> <%= project.client.last_name %> </td>
                 <% else %>
                     <td style="color: red;" >Removed</td>
+                <% end %>            
+              <% unless project.manager.try(:last_name).nil? %>
+                   <td> <%= project.manager.last_name %> </td>
+                <% else %>
+                    <td style="color: red;" >Removed</td>
                 <% end %>
-              <td> <%= project.status.title %> </td>
+              <td> <%= project.status %> </td>
         <td> <%= project.date_of_start %> </td>
         <td> <%= project.deadline %> </td>
         <td> <%= project.totally %> </td>
-        <td> <%= project.currency.title %> </td>
+        <td> <%= project.currency %> </td>
         <td> <%= project.paid %> </td>
         <td> <%= project.to_pay %> </td>
         <td> <%= project.comment %> </td>

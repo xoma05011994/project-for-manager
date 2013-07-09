@@ -35,7 +35,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.create(params[:project])
     if @project.errors.empty?
-      redirect_to @project
+      redirect_to projects_path
     end
    
       #new_project.client_id = params[:project][:client]
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
           programmer_project.save
         end
       end
-      render projects_path
+      redirect_to projects_path
 
     else
 

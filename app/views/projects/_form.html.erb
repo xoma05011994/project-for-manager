@@ -3,7 +3,7 @@
           <%= project.input :id, :as => :hidden %>
           <%= project.input :name, :label => "Project name:" %>
           
-          <%= project.input :client, :label => "Client:", :collection => @clients.map{|client| [client.last_name, client.id]}, :selected => "1" %>
+          <%= project.input :client_id, :label => "Client:", :collection => @clients.map{|client| [client.last_name, client.id]}, :selected => "1" %>
           <%= project.input :manager, :label => "Manager:", :collection => @managers.map{|manager| [manager.last_name, manager.id]}, :selected => "1" %>
           <%= project.input :status, :label => "Status", collection: ['initialization','started', 'finished', 'payed','put in portfolio'], include_blank: false %>
 
@@ -16,7 +16,7 @@
           <%= project.input :comment, :as => :text, :label => "Comment:" %>
 
           <%= project.input :programmer_ids, :as => :check_boxes do %>
-               <%= project.collection_check_boxes :programmer_ids, Programmer.order(:id), :id, :name do |b|
+               <%= project.collection_check_boxes :programmer_ids, Programmer.order(:id), :id, :last_name do |b|
                     b.label { b.check_box + b.text }
                end %>
           <% end %>

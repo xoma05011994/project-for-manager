@@ -19,8 +19,8 @@
         </tr>
         <% unless @client.projects.nil? %>
           <% @client.projects.each do |project| %>
-            <tr class = "client_id" client-id = "<%= client.id.to_s %>" >
-              <td> <%= project.title %> </td>              
+            <tr class = "client_id">
+              <td> <%= project.name %> </td>              
               <td> 
                 <% project.programmers.each do |programmer| %> 
                   <%= programmer.last_name + ";" %>
@@ -31,11 +31,11 @@
                 <% else %>
                     <td style="color: red;" >Removed</td>
                 <% end %>
-              <td> <%= project.status.title %> </td>
+              <td> <%= project.status %> </td>
         <td> <%= project.date_of_start %> </td>
         <td> <%= project.deadline %> </td>
         <td> <%= project.totally %> </td>
-        <td> <%= project.currency.title %> </td>
+        <td> <%= project.currency %> </td>
         <td> <%= project.paid %> </td>
         <td> <%= project.to_pay %> </td>
         <td> <%= project.comment %> </td>

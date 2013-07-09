@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :comment, :currency, :client_id, :date_of_start, :deadline, :manager_id, :name, :paid, :status, :to_pay, :totally, :programmer_ids, :currency_id, :status_id
+  attr_accessible :comment, :currency, :client_id, :date_of_start, :deadline, :manager_id, :name, :paid, :status, :to_pay, :totally, :programmer_ids, :currency_id, :status_id, :id, :client
   #belongs_to :currency
   # has_one :client
   #belongs_to :status

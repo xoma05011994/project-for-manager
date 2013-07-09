@@ -14,7 +14,7 @@
         </tr>
         <% unless @clients.nil? %>
           <% @clients.each do |client| %>
-            <tr class = "client_id" client-id = "<%= client.id.to_s %>" >
+            <tr class = "client_id" >
               <td> <%= client.last_name %> </td>              
               <td> <%= client.first_name %> </td>
               <td> <%= client.email %> </td>
