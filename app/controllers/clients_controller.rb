@@ -1,15 +1,24 @@
 class ClientsController < ApplicationController
+  def index
+    @clients = Client.all
+  end
+
   def show
-  	@clients_all = Client.all
-  	@client_new = Client.new
-    
+    @client = Client.find(params[:id])
   end
 
   def new
+    @client = Client.new
 
-  	Client.create(params[:client])
-  	render js: "location.reload();"
-
+  end
+  def create 
+    @client = Client.new(params[:client])
+  
+   if @client.save
+     redirect_to @client
+   else
+     render 'new'
+   end
   end
 
   def update

@@ -1,0 +1,7 @@
+<%= simple_form_for @client do |client| %>
+          <%= client.input :first_name, :as => :string, :label => "Name:" %>
+          <%= client.input :last_name, :as => :string, :label => "Last name:" %>
+          <%= client.input :email, :as => :email, :label => "Email:" %>
+          <%= client.button :submit %>
+        
+        <% end %>
