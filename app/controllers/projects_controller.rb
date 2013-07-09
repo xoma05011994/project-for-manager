@@ -16,9 +16,22 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @projects = Project.all
+    
+    @clients = Client.all
+    @managers = Manager.all
+    @programmers = Programmer.all
+    #@statuses_all = Status.all
+    #@currencies_all = Currency.all
+    @programmer_ids = Programmer.select("id")
+    @programmer_last_names = Programmer.select("last_name")
   end
 
   def create
+
+    @programmers = Programmer.all
+    @programmer_ids = Programmer.select("id")
+    @programmer_last_names = Programmer.select("last_name")
 
     @project = Project.create(params[:project])
     if @project.errors.empty?
@@ -34,11 +47,11 @@ class ProjectsController < ApplicationController
       #new_project.deadline = params[:project][:deadline]
       #new_project.totally = params[:project][:totally] 
       #new_project.paid = params[:project][:paid] 
-      new_project.to_pay = params[:project][:totally].to_f - params[:project][:paid].to_f
+      @project.to_pay = params[:project][:totally].to_f - params[:project][:paid].to_f
       #new_project.comment = params[:project][:comment]
 
 
-    if new_project.save
+    if @project.save
 
       last_project = Project.last
 
@@ -50,7 +63,7 @@ class ProjectsController < ApplicationController
           programmer_project.save
         end
       end
-      render js: "location.reload();"
+      render projects_path
 
     else
 
@@ -59,13 +72,23 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def delete
+  def edit
+    @project = Project.find(params[:id])
+
+    @clients = Client.all
+    @managers = Manager.all
+    @programmers = Programmer.all
+  end
+
+  def destroy
     # binding.pry
-    Project.find(params[:id_project]).destroy
-    ProgrammerProject.where("project_id = ?", params[:id_project]).each do |p_p|
+    @project = Project.find(params[:id])
+    @project.destroy
+
+    ProgrammerProject.where("project_id = ?", params[:id]).each do |p_p|
       p_p.destroy
     end
-    render js: "location.reload();"
+    redirect_to projects_path
   end
 
   def update
@@ -107,7 +130,7 @@ class ProjectsController < ApplicationController
             programmer_project.save
           end
         end  
-        render js: "location.reload();"
+        redirect_to projects_path
       else
         render js: "alert('Didn`t update. Please, try againe!');"
       end
